@@ -1,12 +1,15 @@
-const express = require("express");
+const express = require('express');
 
 const app = express();
 const { PORT = 3000 } = process.env;
-const userRouter = require("./routes/users");
-const cardsRouter = require("./routes/cards");
+const userRouter = require('./routes/users');
+const cardsRouter = require('./routes/cards');
 
-app.use("/", userRouter);
-app.use("/", cardsRouter);
+app.use('/', userRouter);
+app.use('/', cardsRouter);
+app.use((req, res) => {
+  res.status(404).send({ message: 'The requested resource was not found' });
+});
 
 app.listen(PORT, () => {
   console.log(`App listening at port ${PORT}`);
