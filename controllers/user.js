@@ -1,12 +1,13 @@
 const path = require('path');
 const { getDataFromFile } = require('../helpers/files');
+const {errorTypes} = require ('../utils');
 
 const usersDataPath = path.join(__dirname, '..', 'data', 'users.json');
 
 const getUsers = (req, res) => getDataFromFile(usersDataPath)
-  .then((users) => res.status(200).send(users))
+  .then((users) => res.status(errorTypes.OK).send(users))
   .catch((err) => res
-    .status(500)
+    .status(errorTypes.SERVER_ERROR)
     .send({ message: `An error has occurred on the server ${err}` }));
 
 const getUsersById = (req, res) => getDataFromFile(usersDataPath)
@@ -14,12 +15,12 @@ const getUsersById = (req, res) => getDataFromFile(usersDataPath)
   .then((user) => {
     if (!user) {
       res
-        .status(404)
+        .status(errorTypes.NOT_FOUND)
         .send({ message: `No user found with id of ${req.params.id}` });
-    } else res.status(200).send(user);
+    } else res.status(errorTypes.OK).send(user);
   })
   .catch((err) => res
-    .status(500)
+    .status(errorTypes.SERVER_ERROR)
     .send({ message: `An error has occurred on the server ${err}` }));
-    
+
 module.exports = { getUsers, getUsersById };
