@@ -8,6 +8,7 @@ const getUsers = (req, res) => getDataFromFile(usersDataPath)
   .catch((err) => res
     .status(500)
     .send({ message: `An error has occurred on the server ${err}` }));
+
 const getUsersById = (req, res) => getDataFromFile(usersDataPath)
   .then((users) => users.find((user) => user._id.toString() === req.params.id))
   .then((user) => {
@@ -20,4 +21,5 @@ const getUsersById = (req, res) => getDataFromFile(usersDataPath)
   .catch((err) => res
     .status(500)
     .send({ message: `An error has occurred on the server ${err}` }));
+    
 module.exports = { getUsers, getUsersById };
