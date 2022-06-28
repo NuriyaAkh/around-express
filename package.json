@@ -4,8 +4,7 @@
   "description": "Around the US back end",
   "main": "app.js",
   "scripts": {
-    "start":"app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
     "lint": "npx eslint .",
     "dev": "nodemon app.js"
   },

@@ -1,15 +1,8 @@
-const router = require('express').Router(); // creating a router
-const { users } = require('./data/users');
+const router = require("express").Router(); 
+const { getUsers, getUsersById } = require("../controllers/user");
 
-router.get('/users/:id', (req, res) => {
-  if (!users[req.params.id]) {
-    res.send(`This user doesn't exist`);
-    return;
-  }
+router.get("/users", getUsers);
+router.get("/users/:id", getUsersById);
 
 
-
-  res.send(`User `);
-});
-
-module.exports = router; // exporting the router
+module.exports = router;
