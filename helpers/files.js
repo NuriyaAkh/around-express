@@ -11,7 +11,7 @@ const getDataFromFile = (pathToFile) => {
       .catch((err) =>
         res
           .status(500)
-          .send({ message: `'An error has occurred on the server ${err}` })
+          .send({ message: `An error has occurred on the server ` })
       )
   );
 };
