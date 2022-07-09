@@ -7,6 +7,8 @@ const cardsRouter = require('./routes/cards');
 const { errorTypes } = require('./utils');
 
 mongoose.connect('mongodb://localhost:27017/aroundb');
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use('/', userRouter);
 app.use('/', cardsRouter);
 app.use((req, res) => {

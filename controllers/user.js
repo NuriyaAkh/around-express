@@ -14,7 +14,7 @@ const getUsers = (req, res) =>
     );
 
 const getUsersById = (req, res) =>
-  User.findById(req.params.id)
+ User.findById(req.params.id)
     .then((users) =>
       users.find((user) => user._id.toString() === req.params.id)
     )
@@ -31,8 +31,9 @@ const getUsersById = (req, res) =>
         .send({ message: `An error has occurred on the server ${err}` })
     );
 
-const createUsers = (req, res) => {
+const createNewUser = (req, res) => {
   const { name, about, avatar } = req.body;
+  console.log(req.body);
   User.create({ name, about, avatar })
     .then((user) => res.send({ data: user }))
     .catch((err) =>
@@ -43,4 +44,4 @@ const createUsers = (req, res) => {
 };
 
 
-module.exports = { getUsers, getUsersById };
+module.exports = { getUsers, getUsersById, createNewUser};
