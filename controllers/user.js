@@ -8,11 +8,21 @@ const getUsers = (req, res) =>
   User.find({})
     .orFail()
     .then((users) => res.status(errorTypes.OK).send(users))
-    .catch((err) =>
-      res
-        .status(errorTypes.SERVER_ERROR)
-        .send({ message: `An error has occurred on the server ${err}` })
-    );
+    .catch((err) => {
+      if (err.name === "DocumentNotFoundError") {
+        res
+          .status(errorTypes.NOT_FOUND)
+          .send({ message: `Requested information not found ${err}` });
+      } else if (err.name === "ValidationError" || err.name === "CastError") {
+        res
+          .status(errorTypes.BAD_REQUEST)
+          .send({ message: `Please make a valid request ${err}` });
+      } else {
+        res
+          .status(errorTypes.SERVER_ERROR)
+          .send({ message: `An error has occurred on the server ${err}` });
+      }
+    });
 
 const getUsersById = (req, res) =>
   User.findById(req.params.id)
@@ -22,22 +32,42 @@ const getUsersById = (req, res) =>
       throw error;
     })
     .then((user) => res.status(errorTypes.OK).send({ data: user }))
-    .catch((err) =>
-      res
-        .status(errorTypes.SERVER_ERROR)
-        .send({ message: `An error has occurred on the server ${err}` })
-    );
+    .catch((err) => {
+      if (err.name === "DocumentNotFoundError") {
+        res
+          .status(errorTypes.NOT_FOUND)
+          .send({ message: `Requested information not found ${err}` });
+      } else if (err.name === "ValidationError" || err.name === "CastError") {
+        res
+          .status(errorTypes.BAD_REQUEST)
+          .send({ message: `Please make a valid request ${err}` });
+      } else {
+        res
+          .status(errorTypes.SERVER_ERROR)
+          .send({ message: `An error has occurred on the server ${err}` });
+      }
+    });
 
 const createNewUser = (req, res) => {
   const { name, about, avatar } = req.body;
   console.log(req.body);
   User.create({ name, about, avatar })
     .then((user) => res.send({ data: user }))
-    .catch((err) =>
-      res
-        .status(errorTypes.SERVER_ERROR)
-        .send({ message: `An error has occurred on the server ${err}` })
-    );
+    .catch((err) => {
+      if (err.name === "DocumentNotFoundError") {
+        res
+          .status(errorTypes.NOT_FOUND)
+          .send({ message: `Requested information not found ${err}` });
+      } else if (err.name === "ValidationError" || err.name === "CastError") {
+        res
+          .status(errorTypes.BAD_REQUEST)
+          .send({ message: `Please make a valid request ${err}` });
+      } else {
+        res
+          .status(errorTypes.SERVER_ERROR)
+          .send({ message: `An error has occurred on the server ${err}` });
+      }
+    });
 };
 const updateUserData = (req, res) => {
   const { name, about } = req.body;
@@ -52,11 +82,21 @@ const updateUserData = (req, res) => {
       throw error;
     })
     .then((user) => res.send({ data: user }))
-    .catch((err) =>
-      res
-        .status(errorTypes.SERVER_ERROR)
-        .send({ message: `An error has occurred on the server ${err}` })
-    );
+    .catch((err) => {
+      if (err.name === "DocumentNotFoundError") {
+        res
+          .status(errorTypes.NOT_FOUND)
+          .send({ message: `Requested information not found ${err}` });
+      } else if (err.name === "ValidationError" || err.name === "CastError") {
+        res
+          .status(errorTypes.BAD_REQUEST)
+          .send({ message: `Please make a valid request ${err}` });
+      } else {
+        res
+          .status(errorTypes.SERVER_ERROR)
+          .send({ message: `An error has occurred on the server ${err}` });
+      }
+    });
 };
 const updateUserAvatar = (req, res) => {
   const { avatar } = req.body;
@@ -71,11 +111,21 @@ const updateUserAvatar = (req, res) => {
       throw error;
     })
     .then((user) => res.send({ data: user }))
-    .catch((err) =>
-      res
-        .status(errorTypes.SERVER_ERROR)
-        .send({ message: `An error has occurred on the server ${err}` })
-    );
+    .catch((err) => {
+      if (err.name === "DocumentNotFoundError") {
+        res
+          .status(errorTypes.NOT_FOUND)
+          .send({ message: `Requested information not found ${err}` });
+      } else if (err.name === "ValidationError" || err.name === "CastError") {
+        res
+          .status(errorTypes.BAD_REQUEST)
+          .send({ message: `Please make a valid request ${err}` });
+      } else {
+        res
+          .status(errorTypes.SERVER_ERROR)
+          .send({ message: `An error has occurred on the server ${err}` });
+      }
+    });
 };
 
 module.exports = {

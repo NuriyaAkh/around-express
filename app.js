@@ -17,9 +17,9 @@ app.use((req, res,next) => {
   req.user = {
     _id: '62c9db8f6db879685b8a9d3f'
   };
-  res
-    .status(errorTypes.NOT_FOUND)
-    .send({ message: 'The requested resource was not found' });
+  // res
+  //   .status(errorTypes.NOT_FOUND)
+  //   .send({ message: 'The requested resource was not found' });
     next();
 });
 
