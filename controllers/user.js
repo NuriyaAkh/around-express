@@ -1,8 +1,5 @@
-// const path = require('path');
-// const { getDataFromFile } = require('../helpers/files');
 const { errorTypes } = require('../utils');
 const User = require('../models/user');
-// const usersDataPath = path.join(__dirname, '..', 'data', 'users.json');
 
 const getUsers = (req, res) => User.find({})
   .orFail()

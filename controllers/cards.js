@@ -1,8 +1,5 @@
-// const path = require('path');
-// const { getDataFromFile } = require('../helpers/files');
 const { errorTypes } = require('../utils');
 const Card = require('../models/card');
-// const cardsDataPath = path.join(__dirname, '..', 'data', 'cards.json');
 
 const getCards = (req, res) => {
   Card.find({})
@@ -26,9 +23,7 @@ const getCards = (req, res) => {
 };
 const createNewCard = (req, res) => {
   const { name, link } = req.body;
-  console.log(req.body);
   const owner = req.user._id;
-  console.log(owner);
   Card.create({ name, link, owner })
     .then((card) => res.send({ data: card }))
     .catch((err) => {
