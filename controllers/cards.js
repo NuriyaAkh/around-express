@@ -38,11 +38,8 @@ const deleteCard = (req, res) => {
     );
 };
 const likeCard = (req, res) => {
-  Card.findByIdAndUpdate(
-    req.params.cardId,
-    { $addToSet: { likes: req.user._id } }, // add _id to the array if it's not there yet
-    { new: true }
-  )
+  Card.findByIdAndUpdate( req.params.cardId,
+    { $addToSet: { likes: req.user._id } }, { new: true })
     .then((card) => res.send({ data: card }))
     .catch((err) =>
       res

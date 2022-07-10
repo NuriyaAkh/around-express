@@ -21,13 +21,7 @@ const getUsersById = (req, res) =>
       error.statusCode = 404;
       throw error;
     })
-    .then((user) => {
-      if (!user) {
-        res
-          .status(errorTypes.NOT_FOUND)
-          .send({ message: `No user found with id of ${req.params.id}` });
-      } else res.status(errorTypes.OK).send(user);
-    })
+    .then((user) => res.status(errorTypes.OK).send({ data: user }))
     .catch((err) =>
       res
         .status(errorTypes.SERVER_ERROR)
@@ -46,7 +40,7 @@ const createNewUser = (req, res) => {
     );
 };
 const updateUserData = (req, res) => {
-  const { name, about, avatar } = req.body;
+  const { name, about } = req.body;
   User.findByIdAndUpdate(
     req.user._id,
     { name, about },
@@ -65,7 +59,7 @@ const updateUserData = (req, res) => {
     );
 };
 const updateUserAvatar = (req, res) => {
-  const { name, about, avatar } = req.body;
+  const { avatar } = req.body;
   User.findByIdAndUpdate(
     req.user._id,
     { avatar },
