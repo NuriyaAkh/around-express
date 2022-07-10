@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -18,13 +18,12 @@ const userSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (v) => {
-          /https?:\/\/(www\.)?\S+\/[-._~:/?%#[\]@!$&'()*+,;=\w]*#?$/.test(v);
+        /https?:\/\/(www\.)?\S+\/[-._~:/?%#[\]@!$&'()*+,;=\w]*#?$/.test(v);
+      },
+      message: 'Please enter a valid link starting with "http" or "https"',
     },
-    message: 'Please enter a valid link starting with "http" or "https"',
-    }
 
-    }
-
+  },
 
 });
-module.exports = mongoose.model("user", userSchema);
+module.exports = mongoose.model('user', userSchema);

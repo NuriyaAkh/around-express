@@ -1,19 +1,19 @@
-//const path = require('path');
-//const { getDataFromFile } = require('../helpers/files');
-const { errorTypes } = require("../utils");
-const Card = require("../models/card");
-//const cardsDataPath = path.join(__dirname, '..', 'data', 'cards.json');
+// const path = require('path');
+// const { getDataFromFile } = require('../helpers/files');
+const { errorTypes } = require('../utils');
+const Card = require('../models/card');
+// const cardsDataPath = path.join(__dirname, '..', 'data', 'cards.json');
 
 const getCards = (req, res) => {
   Card.find({})
     .orFail()
     .then((cards) => res.status(errorTypes.OK).send(cards))
     .catch((err) => {
-      if (err.name === "DocumentNotFoundError") {
+      if (err.name === 'DocumentNotFoundError') {
         res
           .status(errorTypes.NOT_FOUND)
           .send({ message: `Requested information not found ${err}` });
-      } else if (err.name === "ValidationError" || err.name === "CastError") {
+      } else if (err.name === 'ValidationError' || err.name === 'CastError') {
         res
           .status(errorTypes.BAD_REQUEST)
           .send({ message: `Please make a valid request ${err}` });
@@ -32,11 +32,11 @@ const createNewCard = (req, res) => {
   Card.create({ name, link, owner })
     .then((card) => res.send({ data: card }))
     .catch((err) => {
-      if (err.name === "DocumentNotFoundError") {
+      if (err.name === 'DocumentNotFoundError') {
         res
           .status(errorTypes.NOT_FOUND)
           .send({ message: `Requested information not found ${err}` });
-      } else if (err.name === "ValidationError" || err.name === "CastError") {
+      } else if (err.name === 'ValidationError' || err.name === 'CastError') {
         res
           .status(errorTypes.BAD_REQUEST)
           .send({ message: `Please make a valid request ${err}` });
@@ -52,11 +52,11 @@ const deleteCard = (req, res) => {
     .orFail()
     .then((card) => res.send({ data: card }))
     .catch((err) => {
-      if (err.name === "DocumentNotFoundError") {
+      if (err.name === 'DocumentNotFoundError') {
         res
           .status(errorTypes.NOT_FOUND)
           .send({ message: `Requested information not found ${err}` });
-      } else if (err.name === "ValidationError" || err.name === "CastError") {
+      } else if (err.name === 'ValidationError' || err.name === 'CastError') {
         res
           .status(errorTypes.BAD_REQUEST)
           .send({ message: `Please make a valid request ${err}` });
@@ -71,15 +71,15 @@ const likeCard = (req, res) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $addToSet: { likes: req.user._id } },
-    { new: true }
+    { new: true },
   )
     .then((card) => res.send({ data: card }))
     .catch((err) => {
-      if (err.name === "DocumentNotFoundError") {
+      if (err.name === 'DocumentNotFoundError') {
         res
           .status(errorTypes.NOT_FOUND)
           .send({ message: `Requested information not found ${err}` });
-      } else if (err.name === "ValidationError" || err.name === "CastError") {
+      } else if (err.name === 'ValidationError' || err.name === 'CastError') {
         res
           .status(errorTypes.BAD_REQUEST)
           .send({ message: `Please make a valid request ${err}` });
@@ -94,15 +94,15 @@ const dislikeCard = (req, res) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $pull: { likes: req.user._id } }, // remove _id from the array
-    { new: true }
+    { new: true },
   )
     .then((card) => res.send({ data: card }))
     .catch((err) => {
-      if (err.name === "DocumentNotFoundError") {
+      if (err.name === 'DocumentNotFoundError') {
         res
           .status(errorTypes.NOT_FOUND)
           .send({ message: `Requested information not found ${err}` });
-      } else if (err.name === "ValidationError" || err.name === "CastError") {
+      } else if (err.name === 'ValidationError' || err.name === 'CastError') {
         res
           .status(errorTypes.BAD_REQUEST)
           .send({ message: `Please make a valid request ${err}` });
@@ -114,4 +114,6 @@ const dislikeCard = (req, res) => {
     });
 };
 
-module.exports = { getCards, createNewCard, deleteCard, likeCard, dislikeCard };
+module.exports = {
+  getCards, createNewCard, deleteCard, likeCard, dislikeCard,
+};
