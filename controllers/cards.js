@@ -1,3 +1,4 @@
+const handleError = require('../utils');
 const { errorTypes } = require('../utils');
 const Card = require('../models/card');
 
@@ -6,19 +7,7 @@ const getCards = (req, res) => {
     .orFail()
     .then((cards) => res.status(errorTypes.OK).send(cards))
     .catch((err) => {
-      if (err.name === 'DocumentNotFoundError') {
-        res
-          .status(errorTypes.NOT_FOUND)
-          .send({ message: `Requested information not found ${err}` });
-      } else if (err.name === 'ValidationError' || err.name === 'CastError') {
-        res
-          .status(errorTypes.BAD_REQUEST)
-          .send({ message: `Please make a valid request ${err}` });
-      } else {
-        res
-          .status(errorTypes.SERVER_ERROR)
-          .send({ message: `An error has occurred on the server ${err}` });
-      }
+      handleError(err, req, res);
     });
 };
 const createNewCard = (req, res) => {
@@ -27,19 +16,7 @@ const createNewCard = (req, res) => {
   Card.create({ name, link, owner })
     .then((card) => res.send({ data: card }))
     .catch((err) => {
-      if (err.name === 'DocumentNotFoundError') {
-        res
-          .status(errorTypes.NOT_FOUND)
-          .send({ message: `Requested information not found ${err}` });
-      } else if (err.name === 'ValidationError' || err.name === 'CastError') {
-        res
-          .status(errorTypes.BAD_REQUEST)
-          .send({ message: `Please make a valid request ${err}` });
-      } else {
-        res
-          .status(errorTypes.SERVER_ERROR)
-          .send({ message: `An error has occurred on the server ${err}` });
-      }
+      handleError(err, req, res);
     });
 };
 const deleteCard = (req, res) => {
@@ -47,19 +24,7 @@ const deleteCard = (req, res) => {
     .orFail()
     .then((card) => res.send({ data: card }))
     .catch((err) => {
-      if (err.name === 'DocumentNotFoundError') {
-        res
-          .status(errorTypes.NOT_FOUND)
-          .send({ message: `Requested information not found ${err}` });
-      } else if (err.name === 'ValidationError' || err.name === 'CastError') {
-        res
-          .status(errorTypes.BAD_REQUEST)
-          .send({ message: `Please make a valid request ${err}` });
-      } else {
-        res
-          .status(errorTypes.SERVER_ERROR)
-          .send({ message: `An error has occurred on the server ${err}` });
-      }
+      handleError(err, req, res);
     });
 };
 const likeCard = (req, res) => {
@@ -70,19 +35,7 @@ const likeCard = (req, res) => {
   )
     .then((card) => res.send({ data: card }))
     .catch((err) => {
-      if (err.name === 'DocumentNotFoundError') {
-        res
-          .status(errorTypes.NOT_FOUND)
-          .send({ message: `Requested information not found ${err}` });
-      } else if (err.name === 'ValidationError' || err.name === 'CastError') {
-        res
-          .status(errorTypes.BAD_REQUEST)
-          .send({ message: `Please make a valid request ${err}` });
-      } else {
-        res
-          .status(errorTypes.SERVER_ERROR)
-          .send({ message: `An error has occurred on the server ${err}` });
-      }
+      handleError(err, req, res);
     });
 };
 const dislikeCard = (req, res) => {
@@ -93,22 +46,14 @@ const dislikeCard = (req, res) => {
   )
     .then((card) => res.send({ data: card }))
     .catch((err) => {
-      if (err.name === 'DocumentNotFoundError') {
-        res
-          .status(errorTypes.NOT_FOUND)
-          .send({ message: `Requested information not found ${err}` });
-      } else if (err.name === 'ValidationError' || err.name === 'CastError') {
-        res
-          .status(errorTypes.BAD_REQUEST)
-          .send({ message: `Please make a valid request ${err}` });
-      } else {
-        res
-          .status(errorTypes.SERVER_ERROR)
-          .send({ message: `An error has occurred on the server ${err}` });
-      }
+      handleError(err, req, res);
     });
 };
 
 module.exports = {
-  getCards, createNewCard, deleteCard, likeCard, dislikeCard,
+  getCards,
+  createNewCard,
+  deleteCard,
+  likeCard,
+  dislikeCard,
 };
